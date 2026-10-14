@@ -2,7 +2,7 @@ name: Docs
 
 # Publishes the engine's manual (MkDocs, with the Luau API the SDK generates and the changelog git-cliff writes) to
 # GitHub Pages. The source is the private engine repo (read-only deploy key); the SDK is the latest release of
-# apogeeengine/builds.
+# apogeeengine/builds (the nightly prerelease, else the latest release). Daily, after the nightly build.
 on:
   workflow_dispatch:
     inputs:
@@ -10,7 +10,7 @@ on:
         description: Engine branch, tag or commit
         default: main
   schedule:
-    - cron: "0 4 * * 1"
+    - cron: "0 7 * * *"
 
 permissions:
   contents: read
@@ -45,7 +45,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download --repo apogeeengine/builds --pattern 'apogee-linuxbsd-sdk-x86_64.zip' --dir "$RUNNER_TEMP"
+          tag=nightly
+          gh release view nightly --repo apogeeengine/builds > /dev/null 2>&1 || tag=""
+          gh release download $tag --repo apogeeengine/builds --pattern 'apogee-linuxbsd-sdk-x86_64.zip' --dir "$RUNNER_TEMP"
           mkdir -p Bin && unzip -q "$RUNNER_TEMP/apogee-linuxbsd-sdk-x86_64.zip" -d Bin
           chmod +x Bin/apogee.linuxbsd.sdk.x86_64
 
