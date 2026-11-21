@@ -1,0 +1,3722 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A free, open-source C# 3D engine made for crunching numbers.">
+      
+      
+      
+        <link rel="canonical" href="https://apogeeengine.github.io/docs/manual/content/prefabs/">
+      
+      
+        <link rel="prev" href="../scenes/">
+      
+      
+        <link rel="next" href="../hot-reload/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.8.0">
+    
+    
+      
+        <title>Prefabs - Apogee Engine</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.57a0d79d.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.fb2fffe2.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#prefabs" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Apogee Engine" class="md-header__button md-logo" aria-label="Apogee Engine" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Apogee Engine
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Prefabs
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/apogeeengine/Apogee.Engine" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    apogeeengine/Apogee.Engine
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../about/introduction/" class="md-tabs__link">
+          
+  
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../getting-started/building/" class="md-tabs__link">
+          
+  
+  
+  Getting started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../core/core/" class="md-tabs__link">
+          
+  
+  
+  Manual
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../api/" class="md-tabs__link">
+          
+  
+  
+  API reference
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../contributing/" class="md-tabs__link">
+          
+  
+  
+  Contributing
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Apogee Engine" class="md-nav__button md-logo" aria-label="Apogee Engine" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Apogee Engine
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/apogeeengine/Apogee.Engine" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    apogeeengine/Apogee.Engine
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/license/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/building/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Samples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Samples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/samples/viewer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Viewer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/samples/scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/samples/mods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Mods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../getting-started/samples/ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Manual
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Manual
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_1" id="__nav_4_1_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_1">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Core
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/core/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/crashes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Logs and crash reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/interop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Interop
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/math/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Math and the world
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/reflection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reflection
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/ecs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ECS
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../core/profiling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Profiling and SIMD
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Native code
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Native code
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../native/bindings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Native bindings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../native/native-libraries/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Native libraries
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Platform
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../platform/platform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Platform
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../platform/input/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Input actions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../platform/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Settings
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Graphics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../graphics/graphics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Graphics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../graphics/rendering/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Rendering
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../graphics/tone-mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exposure and tone mapping
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../graphics/metal/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Metal
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Physics
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../physics/physics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Physics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../physics/vehicles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Vehicles and hitches
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../audio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Audio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Network
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/network/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Network
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../network/steam/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Steam
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripting
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Scripting
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/scripting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scripting
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tasks and game time
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/tweens/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tweens
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../scripting/runtime/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Runtime and Luau tests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Content
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../content/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Content
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../defs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Definitions and schemas
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packages/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packages and mods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../game-manifest/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Game manifest
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../packs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Packs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../import/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asset import
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Asset identity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scenes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Scenes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prefabs
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Prefabs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ids-stay-the-same" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ids stay the same
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From C
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The library
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-luau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Luau
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-prefabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested prefabs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-overrides-are-stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How overrides are stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hot-reload/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hot reload
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User interface
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+          
+          
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tools
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_11">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Tools
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/devtools/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dev tools
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/editor/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Editor
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tools/export/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Exporting a game
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    API reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    C#
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    C#
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/csharp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/csharp/namespaces/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Namespaces
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Luau
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Luau
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/luau/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/luau/reference/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/luau/enums/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Enums
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Contributing
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/help-wanted/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Help wanted
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/continuous-integration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Continuous integration
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/writing-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Writing docs
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The format
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ids-stay-the-same" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ids stay the same
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From C
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="From C">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-library" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The library
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#from-luau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From Luau
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-prefabs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested prefabs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#overrides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overrides
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Limits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-overrides-are-stored" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How overrides are stored
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Files
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/apogeeengine/Apogee.Engine/edit/main/Docs/manual/content/prefabs.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="prefabs">Prefabs<a class="headerlink" href="#prefabs" title="Permanent link">&para;</a></h1>
+<p>A prefab is a piece of a scene that can be made again and again: one entity with everything below it, saved as an XML document, a <code>.aprefab</code> file. A lamp with its model and its bulb, a crate with its
+lid. A script or a tool instantiates it where it is needed, and every instance starts out the same. Like a <a href="../scenes/">scene</a> it is XML, so a person can read it, a diff of two versions makes sense, and
+it has a <a href="../assets/#where-a-uid-lives">UID</a> in its root that survives renaming and moving the file.</p>
+<p>This page is the format of a prefab file, the numbers its entities keep, how to make instances and save a prefab from C# and Luau, and how a <a href="../scenes/#prefab-instances">scene</a> or another prefab
+holds an instance: as one element that names the prefab and says only what it changes. An instance is a set of ordinary entities that came from the file: changing them does not change the file, and a
+scene saves the changes as <em>overrides</em> of the prefab.</p>
+<div class="highlight"><pre><span></span><code><span class="cp">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="nt">&lt;Prefab</span><span class="w"> </span><span class="na">version=</span><span class="s">"1"</span><span class="w"> </span><span class="na">uid=</span><span class="s">"uid://7h2k4m6p8q0rs"</span><span class="w"> </span><span class="na">nextId=</span><span class="s">"4"</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Components&gt;</span><span class="w">                                  </span><span class="cm">&lt;!-- only components a script defined, as in a scene --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Component</span><span class="w"> </span><span class="na">name=</span><span class="s">"Flicker"</span><span class="nt">&gt;&lt;Field</span><span class="w"> </span><span class="na">name=</span><span class="s">"speed"</span><span class="w"> </span><span class="na">kind=</span><span class="s">"Float32"</span><span class="nt">/&gt;&lt;Field</span><span class="w"> </span><span class="na">name=</span><span class="s">"lamp"</span><span class="w"> </span><span class="na">kind=</span><span class="s">"Entity"</span><span class="nt">/&gt;&lt;/Component&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Components&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"1"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Lamp"</span><span class="nt">&gt;</span><span class="w">                   </span><span class="cm">&lt;!-- exactly one root entity --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"0 0 0"</span><span class="w"> </span><span class="na">Rotation=</span><span class="s">"0 0 0 1"</span><span class="w"> </span><span class="na">Scale=</span><span class="s">"1 1 1"</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ModelRenderer</span><span class="w"> </span><span class="na">Model=</span><span class="s">"res://models/lamp.glb|uid://3c5v7b9n1m2kx"</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"2"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Bulb"</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"0 1.8 0"</span><span class="w"> </span><span class="na">Rotation=</span><span class="s">"0 0 0 1"</span><span class="w"> </span><span class="na">Scale=</span><span class="s">"1 1 1"</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Light</span><span class="w"> </span><span class="na">Color=</span><span class="s">"1 0.9 0.7"</span><span class="w"> </span><span class="na">Intensity=</span><span class="s">"80"</span><span class="w"> </span><span class="na">Range=</span><span class="s">"12"</span><span class="w"> </span><span class="na">InnerCone=</span><span class="s">"0"</span><span class="w"> </span><span class="na">OuterCone=</span><span class="s">"0"</span><span class="w"> </span><span class="na">Kind=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Flicker</span><span class="w"> </span><span class="na">speed=</span><span class="s">"2"</span><span class="w"> </span><span class="na">lamp=</span><span class="s">"1"</span><span class="nt">/&gt;</span><span class="w">             </span><span class="cm">&lt;!-- an Entity field holds an id of this file: 1 is the root --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Entity&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"3"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Base"</span><span class="nt">&gt;&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"0 0 0"</span><span class="w"> </span><span class="na">Rotation=</span><span class="s">"0 0 0 1"</span><span class="w"> </span><span class="na">Scale=</span><span class="s">"1 1 1"</span><span class="nt">/&gt;&lt;/Entity&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Entity&gt;</span>
+<span class="nt">&lt;/Prefab&gt;</span>
+</code></pre></div>
+<h2 id="the-format">The format<a class="headerlink" href="#the-format" title="Permanent link">&para;</a></h2>
+<p>A prefab file is a scene with one root and stable ids. Everything inside <code>&lt;Entity&gt;</code> (components as elements, a field per attribute, child entities, field text, tags) is exactly the
+<a href="../scenes/#the-format">scene format</a>; what differs is the root and the numbers.</p>
+<ul>
+<li><strong><code>&lt;Prefab version="1" uid="…" nextId="…"&gt;</code></strong> is the root. <code>version</code> is the format's version: a file from a newer engine (a larger number) is refused. <code>uid</code> is the file's identity, given when it is
+  first saved or imported and kept after.</li>
+<li><strong>One <code>&lt;Entity&gt;</code></strong> is the root of the prefab, with everything else below it. A file with none or with two is a <code>FormatException</code>.</li>
+<li><strong><code>&lt;Components&gt;</code></strong> is as in a scene: the components that scripts defined, so that the file defines them again when it is instantiated.</li>
+<li><strong><code>id</code></strong> is the entity's number in the file: a whole number from 1 up, used once in the file. Entity-typed fields refer to it. Unlike a scene's, <strong>it does not change when the file is saved</strong>
+  (see below). The id of the root need not be 1.</li>
+<li><strong><code>name</code></strong> is optional, as in a scene. The root's name is the name the instance's root gets (a free one, <code>Lamp 2</code>, when its parent already has a <code>Lamp</code>).</li>
+<li><strong><code>nextId</code></strong> is the id the next new entity takes. It is above every id in the file and is never lowered. A file written by hand without it, or with one that is not above every id, gets it worked out
+  from the highest id (and the engine logs a warning), which is only wrong if the last entity was deleted.</li>
+<li>A prefab keeps its instances' references inside it: an Entity field of the file means an entity of the same instance, so two lamps each point at their own root.</li>
+<li>The component names <code>PrefabInstance</code> and <code>PrefabMember</code> are written by the engine, never to a file; a file that has them is skipped with a warning. <code>Entity</code> and <code>Override</code> cannot be component names
+  (<code>RegisterComponent</code> and <code>DefineComponent</code> refuse them): <code>&lt;Entity&gt;</code> is a child entity, and <code>&lt;Override&gt;</code> is how an instance of a prefab will hold its changes.</li>
+<li>An <code>&lt;Entity&gt;</code> with a <code>prefab</code> attribute is an instance of another prefab inside this one; see <a href="#nested-prefabs">Nested prefabs</a>. Its <code>id</code> is in this file's numbering like any entity's.</li>
+</ul>
+<p><code>prefab.xsd</code> (embedded in <code>Apogee.Ecs</code>, and at <code>Source/Apogee.Ecs/Scene/prefab.xsd</code>) describes the structure; the writer is tested against it.</p>
+<h2 id="ids-stay-the-same">Ids stay the same<a class="headerlink" href="#ids-stay-the-same" title="Permanent link">&para;</a></h2>
+<p>A scene numbers its entities <code>1..n</code> in order every time it is saved, so an id means nothing from one save to the next. A prefab's ids are the opposite on purpose: scenes that instance the prefab will name
+its entities by id, and renumbering would silently point them somewhere else.</p>
+<ul>
+<li>Loading a prefab tags every entity it makes with <strong><code>PrefabMember { Id, Prefab }</code></strong>: its id in the file and the file (a handle of the world's <a href="#the-library">library</a>). The root also gets <strong><code>PrefabInstance { Prefab }</code></strong>
+  (and is a member of its own file, with the id of the file's root). A prefab nested in another has its own entities tagged with <em>its</em> file, and its root is a member of the outer file with the id of the
+  instance element there.</li>
+<li><strong>Saving</strong> (<code>SavePrefabFile</code>) keeps the id of every entity that is a member of that file. A new entity (one made in code, or in an editor) takes <code>nextId</code> and raises it, and is tagged a member right away, so
+  saving again keeps its id. An id that was deleted is never used again: <code>nextId</code> is read from the file being overwritten and kept. What is added to a nested instance is numbered in the file too.</li>
+<li>A copy of a member has its original's id until it is saved: the first of two with the same id keeps it, and the other takes a new one.</li>
+</ul>
+<p>The two components are plain data and need no remapping: <code>Clone</code>, <code>Snapshot</code>, <code>Restore</code> and undo copy them as they are, and a <a href="../../core/ecs/">snapshot</a> names the prefab by its file, as it does a
+model, so it is still the same prefab in the next session.</p>
+<h2 id="from-c">From C<a class="headerlink" href="#from-c" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="n">Entity</span><span class="w"> </span><span class="n">lamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">world</span><span class="p">.</span><span class="n">Instantiate</span><span class="p">(</span><span class="s">"res://prefabs/lamp.aprefab"</span><span class="p">,</span><span class="w"> </span><span class="n">parent</span><span class="p">);</span><span class="w">   </span><span class="c1">// parent is optional</span>
+<span class="n">Entity</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">world</span><span class="p">.</span><span class="n">Instantiate</span><span class="p">(</span><span class="s">"uid://7h2k4m6p8q0rs"</span><span class="p">);</span><span class="w">                   </span><span class="c1">// the file that has that UID, wherever it moved to</span>
+
+<span class="n">world</span><span class="p">.</span><span class="n">PrefabOf</span><span class="p">(</span><span class="n">lamp</span><span class="p">);</span><span class="w">                  </span><span class="c1">// "res://prefabs/lamp.aprefab|uid://7h2k4m6p8q0rs"; null for an entity that is not an instance root</span>
+<span class="n">world</span><span class="p">.</span><span class="n">IsPrefabInstance</span><span class="p">(</span><span class="n">lamp</span><span class="p">);</span><span class="w">          </span><span class="c1">// true</span>
+<span class="n">world</span><span class="p">.</span><span class="n">InstanceOf</span><span class="p">(</span><span class="n">world</span><span class="p">.</span><span class="n">Children</span><span class="p">(</span><span class="n">lamp</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span><span class="w">   </span><span class="c1">// lamp: the instance an entity is part of, or none</span>
+<span class="n">world</span><span class="p">.</span><span class="n">IsPrefabMember</span><span class="p">(</span><span class="n">world</span><span class="p">.</span><span class="n">Children</span><span class="p">(</span><span class="n">lamp</span><span class="p">)[</span><span class="mi">0</span><span class="p">]);</span><span class="w">   </span><span class="c1">// true: part of an instance without being its root, so it cannot be moved under another parent</span>
+
+<span class="n">world</span><span class="p">.</span><span class="n">SavePrefabFile</span><span class="p">(</span><span class="s">"res://prefabs/crate.aprefab"</span><span class="p">,</span><span class="w"> </span><span class="n">crate</span><span class="p">);</span><span class="w">   </span><span class="c1">// one entity and everything under it</span>
+</code></pre></div>
+<ul>
+<li><strong><code>Instantiate</code></strong> takes a path, a <code>uid://…</code> or <code>path|uid://…</code> (the text form of an <a href="../assets/"><code>AssetRef</code></a>), or a handle (<code>world.Instantiate(uint prefab)</code>). It returns the root, and the entities under it are made
+  in the order of the file, the prefabs inside it expanded. It reads without a game's per-mod confinement. Errors: a <code>uid://</code> no file has is a <code>ContentException</code>, a missing file a <code>FileNotFoundException</code>, a file
+  that is not a prefab (another root, none or two roots, a bad or repeated id, a newer version, a root that is itself an instance of another prefab) or that would make more than <code>world.MaxLoadEntities</code> entities a
+  <code>FormatException</code>, and a world without <code>Files</code> an <code>InvalidOperationException</code>. Nothing is made when it fails.</li>
+<li><strong><code>SavePrefabFile(path, root)</code></strong> writes the entity and everything below it. The path must end in <code>.aprefab</code>. The file keeps its UID (a new one gets a new UID), the ids are kept as above, and an Entity
+  field that points at something outside what is saved is left out. An instance of another prefab inside the tree is written as one element with its <a href="#how-overrides-are-stored">overrides</a>, numbered in this
+  file; the root is written as an ordinary entity even when it is an instance (a prefab saved from an instance of itself holds its entities). A tree that holds an instance of the file being written, directly or
+  through another prefab, is an <code>InvalidOperationException</code>, and nothing is written. A path that is not in a writable source is an <code>UnauthorizedAccessException</code>.</li>
+</ul>
+<h3 id="the-library">The library<a class="headerlink" href="#the-library" title="Permanent link">&para;</a></h3>
+<p><code>world.Prefabs</code> is a <code>PrefabLibrary</code>: one number per prefab file, the same for a path, a <code>uid://…</code> or both. It is made when first asked for from the world's <code>Files</code> and <code>Assets</code>; a host that runs
+several worlds hands them one library, so their numbers agree. <code>Load(pathOrRef)</code> gives the handle; <code>RefOf</code>, <code>PathOf</code> and <code>Document</code> go back from it, and a prefab is read from its file once.
+A reference that names no file still gets a handle, which keeps its text (and is that file's handle once the file exists), so an instance of a prefab that is missing keeps what it was made from.
+The handle is only meaningful in the run that made it: scenes and snapshots hold the reference (the field's <code>[Property(Asset = "prefab")]</code> is saved through the world's <code>prefab</code> asset type).</p>
+<h2 id="from-luau">From Luau<a class="headerlink" href="#from-luau" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><span class="kd">local</span><span class="w"> </span><span class="nv">lamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">world</span><span class="p">:</span><span class="nf">instantiate</span><span class="p">(</span><span class="s2">"res://prefabs/lamp.aprefab"</span><span class="p">,</span><span class="w"> </span><span class="nv">parent</span><span class="p">)</span><span class="w">   </span><span class="c1">-- or "uid://…"; parent is optional</span>
+<span class="nb">print</span><span class="p">(</span><span class="nv">world</span><span class="p">:</span><span class="nf">prefab_of</span><span class="p">(</span><span class="nv">lamp</span><span class="p">))</span><span class="w">     </span><span class="c1">-- res://prefabs/lamp.aprefab|uid://7h2k4m6p8q0rs</span>
+<span class="nb">print</span><span class="p">(</span><span class="nv">world</span><span class="p">:</span><span class="nf">prefab_of</span><span class="p">(</span><span class="nv">some</span><span class="p">))</span><span class="w">     </span><span class="c1">-- nil: not the root of an instance</span>
+</code></pre></div>
+<p><code>instantiate</code> returns the root. Like <code>load_scene_file</code> it reads without the per-mod confinement check of <code>fs.read_text</code>: a script can instantiate a prefab of any package or of the game by its path or
+UID, in a shipped game too (a pack holds it at the same path). The failures above are Luau errors. There is no Luau call that writes a prefab file.</p>
+<h2 id="nested-prefabs">Nested prefabs<a class="headerlink" href="#nested-prefabs" title="Permanent link">&para;</a></h2>
+<p>A prefab can hold instances of other prefabs: an <code>&lt;Entity&gt;</code> with a <strong><code>prefab</code></strong> attribute, the same text an <code>AssetRef</code> has (a path, a <code>uid://…</code>, or both). Its <code>id</code> is its number in the file, like any
+entity's, and its <code>name</code> is the name the root of the nested instance gets.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Prefab</span><span class="w"> </span><span class="na">version=</span><span class="s">"1"</span><span class="w"> </span><span class="na">uid=</span><span class="s">"uid://9w1e3r5t7y9ua"</span><span class="w"> </span><span class="na">nextId=</span><span class="s">"5"</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"1"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Corner"</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"0 0 0"</span><span class="w"> </span><span class="na">Rotation=</span><span class="s">"0 0 0 1"</span><span class="w"> </span><span class="na">Scale=</span><span class="s">"1 1 1"</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"2"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Lamp"</span><span class="w"> </span><span class="na">prefab=</span><span class="s">"res://prefabs/lamp.aprefab|uid://7h2k4m6p8q0rs"</span><span class="nt">&gt;</span><span class="w">   </span><span class="cm">&lt;!-- an instance: its id is in the corner's numbering --&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"2 0 0"</span><span class="nt">/&gt;</span><span class="w">                                     </span><span class="cm">&lt;!-- a patch of the lamp's root: only the fields that change --&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Override</span><span class="w"> </span><span class="na">entity=</span><span class="s">"2"</span><span class="nt">&gt;&lt;Light</span><span class="w"> </span><span class="na">Intensity=</span><span class="s">"120"</span><span class="nt">/&gt;&lt;/Override&gt;</span><span class="w">          </span><span class="cm">&lt;!-- the lamp's Bulb (entity 2 of the lamp), in the lamp's numbering --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Entity&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"3"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Lamp 2"</span><span class="w"> </span><span class="na">prefab=</span><span class="s">"res://prefabs/lamp.aprefab|uid://7h2k4m6p8q0rs"</span><span class="nt">&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"-2 0 0"</span><span class="nt">/&gt;</span>
+<span class="w">      </span><span class="nt">&lt;Override</span><span class="w"> </span><span class="na">entity=</span><span class="s">"3"</span><span class="w"> </span><span class="na">remove=</span><span class="s">"true"</span><span class="nt">/&gt;</span><span class="w">                              </span><span class="cm">&lt;!-- this one has no Base --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Entity&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"4"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Bench"</span><span class="nt">&gt;&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"0 0 3"</span><span class="w"> </span><span class="na">Rotation=</span><span class="s">"0 0 0 1"</span><span class="w"> </span><span class="na">Scale=</span><span class="s">"1 1 1"</span><span class="nt">/&gt;&lt;/Entity&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Entity&gt;</span>
+<span class="nt">&lt;/Prefab&gt;</span>
+</code></pre></div>
+<p>Loading a scene or a prefab, and <code>Instantiate</code>, expand every instance element by the rules below (<code>PrefabExpander</code>, in <code>Apogee.Ecs</code>) and then create all the entities. Prefabs are read from the world's
+<a href="#the-library">library</a>, so an instance names its prefab by a path, a UID or both and finds the same file whichever it uses.</p>
+<p><strong>Addresses.</strong> Ids repeat from one prefab to the next (every lamp has an entity 2), so an entity is named by a path of ids, its <strong>address</strong>: <code>4</code> is entity 4 of the document, <code>4/2</code> entity 2 of the prefab
+instanced as entity 4, <code>4/3/2</code> entity 2 of the prefab instanced as entity 3 of the prefab instanced as entity 4. Each id is a whole number from 1 up with no leading zero, and an address has at most 17
+segments (the document's, and one for each of the 16 levels of nesting). The root of an instance is the instance's own address; <code>address/rootId</code> (the root's id in its own file) is accepted as another name for it.
+An address does not follow the hierarchy: if the author of the prefab moves entity 3 under another entity, <code>…/3</code> is still entity 3.</p>
+<p><strong>Scopes.</strong> An Entity-typed field means an entity <em>of the document that holds it</em>. Inside a prefab file that is an id of the file (<code>lamp="1"</code> is the lamp's root), and it becomes an address under wherever the
+file is instanced (<code>5/2</code> for the lamp that is entity 2 of a corner instanced as 5). Everything an instance element and its overrides hold is written in the scope of the document the instance is in, so a field in
+an override inside <code>corner.aprefab</code> is an id of the corner, and one in a scene is an address of the scene. A field that names nothing (an id nobody has, text that is not an address) stays as it is and, as in
+a scene, means no entity.</p>
+<p><strong>Inner before outer.</strong> The instances inside a prefab are expanded first, each with its own patches and overrides; the instance that holds the prefab then applies its overrides on top. An outer override
+may reach into a nested instance with a longer address (<code>2/2</code> in an instance of the corner is the lamp's bulb).</p>
+<p><strong>Names.</strong> Siblings get unique names the way the scene loader gives them: the members of the prefab in file order, then the entities that were added, and a name that is already taken gets a number after it (<code>Part</code>, <code>Part 2</code>, <code>Part 3</code>…).</p>
+<h2 id="overrides">Overrides<a class="headerlink" href="#overrides" title="Permanent link">&para;</a></h2>
+<p>An instance element changes its prefab in three ways: component elements directly inside it, <code>&lt;Entity&gt;</code> children, and <code>&lt;Override&gt;</code> elements for any other entity of the instance.</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"2"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Corner"</span><span class="w"> </span><span class="na">prefab=</span><span class="s">"res://prefabs/corner.aprefab|uid://9w1e3r5t7y9ua"</span><span class="nt">&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"10 0 4"</span><span class="nt">/&gt;</span><span class="w">                         </span><span class="cm">&lt;!-- a modified field on the root: the other fields stay the prefab's --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Health</span><span class="w"> </span><span class="na">max=</span><span class="s">"200"</span><span class="w"> </span><span class="na">current=</span><span class="s">"200"</span><span class="w"> </span><span class="na">append=</span><span class="s">"true"</span><span class="nt">/&gt;</span><span class="w">        </span><span class="cm">&lt;!-- a component the prefab does not have, written whole --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Override</span><span class="w"> </span><span class="na">entity=</span><span class="s">"4"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Old bench"</span><span class="nt">&gt;&lt;Transform</span><span class="w"> </span><span class="na">remove=</span><span class="s">"true"</span><span class="nt">/&gt;&lt;/Override&gt;</span><span class="w">   </span><span class="cm">&lt;!-- a renamed entity, and a removed component --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Override</span><span class="w"> </span><span class="na">entity=</span><span class="s">"2"</span><span class="nt">&gt;&lt;Health</span><span class="w"> </span><span class="na">max=</span><span class="s">"50"</span><span class="w"> </span><span class="na">current=</span><span class="s">"50"</span><span class="w"> </span><span class="na">append=</span><span class="s">"true"</span><span class="nt">/&gt;&lt;/Override&gt;</span><span class="w"> </span><span class="cm">&lt;!-- a component added to the nested lamp's root --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Override</span><span class="w"> </span><span class="na">entity=</span><span class="s">"2/2"</span><span class="nt">&gt;&lt;Light</span><span class="w"> </span><span class="na">Intensity=</span><span class="s">"40"</span><span class="nt">/&gt;&lt;Flicker</span><span class="w"> </span><span class="na">lamp=</span><span class="s">"1"</span><span class="nt">/&gt;&lt;/Override&gt;</span><span class="w">  </span><span class="cm">&lt;!-- into the nested lamp's bulb; lamp="1" is entity 1 of THIS scene --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Override</span><span class="w"> </span><span class="na">entity=</span><span class="s">"3"</span><span class="w"> </span><span class="na">remove=</span><span class="s">"true"</span><span class="nt">/&gt;</span><span class="w">                   </span><span class="cm">&lt;!-- a removed entity, and everything under it --&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Override</span><span class="w"> </span><span class="na">entity=</span><span class="s">"2/3"</span><span class="nt">&gt;</span><span class="w">                                </span><span class="cm">&lt;!-- an entity added under a member, numbered in this document --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"3"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Sign"</span><span class="nt">&gt;&lt;Transform</span><span class="w"> </span><span class="na">Position=</span><span class="s">"0 0.5 0"</span><span class="w"> </span><span class="na">Rotation=</span><span class="s">"0 0 0 1"</span><span class="w"> </span><span class="na">Scale=</span><span class="s">"1 1 1"</span><span class="nt">/&gt;&lt;/Entity&gt;</span>
+<span class="w">  </span><span class="nt">&lt;/Override&gt;</span>
+<span class="w">  </span><span class="nt">&lt;Entity</span><span class="w"> </span><span class="na">id=</span><span class="s">"4"</span><span class="w"> </span><span class="na">name=</span><span class="s">"Trash can"</span><span class="nt">/&gt;</span><span class="w">                      </span><span class="cm">&lt;!-- an entity added directly under the root --&gt;</span>
+<span class="nt">&lt;/Entity&gt;</span>
+</code></pre></div>
+<ul>
+<li><strong><code>&lt;Override entity="address"&gt;</code></strong> is required and is an address relative to the instance (the root of the instance is its id in the prefab, <code>1</code> for a prefab whose root is entity 1; the root's own patches are component elements directly
+  inside the instance element). Its children are component patches and added <code>&lt;Entity&gt;</code> elements; <code>name</code> renames the
+  entity and <code>remove="true"</code> removes it with everything under it (not the root of the instance: remove the instance instead).</li>
+<li><strong>A component element</strong> changes a component the entity has: its attributes replace the prefab's, and the fields it does not name keep the prefab's value. <code>remove="true"</code> removes the component.
+  <code>append="true"</code> adds the component, written whole; if the prefab has (or later gets) the component, the instance's wins. These three words, with <code>patch</code>, are the same ones <a href="../defs/"><code>DefDatabase.Merge</code></a> uses
+  and are never kept in what an instance expands to.</li>
+<li><strong>Added entities</strong> are ordinary entities of the document that writes them (their ids are numbered there, so a scene's own ids, or the prefab file's), and may themselves be instances. They come after the
+  prefab's own children.</li>
+<li>There is no order to override: siblings are in creation order, the prefab's entities first and then the added ones.</li>
+</ul>
+<p><strong>Strict matching.</strong> An override applies only to what is there. The expander reads each element and, when it cannot apply it, keeps it aside instead of guessing:</p>
+<ul>
+<li>an address that names nothing (the prefab lost that entity, or an earlier override removed it), a malformed or missing address, or an <code>&lt;Override&gt;</code> with an attribute this version does not know: the whole element;</li>
+<li>a patch of a component the entity does not have (the prefab dropped it: a half component would be made), or a <code>remove</code> of one it does not have: that component element, under an <code>&lt;Override&gt;</code> with the same
+  address (what could apply did);</li>
+<li>an entity added under a member that another override of the same instance removes: its element, under an <code>&lt;Override&gt;</code> with the address of the removed member.</li>
+</ul>
+<p>Each is logged with its file and line (once per line however many instances there are, and at most 200 lines per load, then one line saying so), and kept as written so that saving the scene does not lose it;
+if the prefab gets the entity or component back, the override applies again. A prefab that is not there is the same: the instance is a single entity with nothing in it, and every element of the instance
+element is kept. What is kept belongs to the document the expansion was asked for: the leftovers of an instance element inside a <em>prefab file</em> are that file's, are logged, and are worked out again at every
+expansion, so they do not appear on the scene's instance.</p>
+<p><code>DefDatabase.Merge</code> is used for the part it fits: the fields of one component (and the <code>remove</code>/<code>append</code> words). It is <em>not</em> used to find entities, which it would do by name and <code>id</code> among direct children only:
+an entity that the author moved would stop matching, ids repeat across nested prefabs, and a patch that matches nothing would add a half-made entity. Overrides address entities by path instead.</p>
+<h2 id="limits">Limits<a class="headerlink" href="#limits" title="Permanent link">&para;</a></h2>
+<p>A prefab file is read by anyone who installs a mod, so expansion is bounded and never trusts a file:</p>
+<ul>
+<li><strong>Nesting depth: 16</strong> (<code>World.MaxPrefabDepth</code>). A chain of prefabs (one inside the next) may be 16 long; the 17th is missing (an instance of it is one empty entity, with a warning). Entities may be nested at most 128 deep in what
+  results (the limit a document already has), or the whole expansion fails.</li>
+<li><strong>Cycles.</strong> A prefab that contains itself, directly or through others (<code>a → b → c → a</code>), is not followed: the instance that would repeat it is missing, and the warning shows the chain. The rest expands.</li>
+<li><strong>Entity budget: 262,144</strong> (<code>World.MaxLoadEntities</code>, settable). The expansion counts each entity as it is about to make it and stops with a <code>FormatException</code> when a load (a scene with all its instances,
+  its own entities are not counted: they are the size of the file and cannot multiply, and a scene with more than the limit entities loaded before there were prefabs) would go over, so a few small files that nest
+  ten instances sixteen levels deep cost at most the budget, not memory without end. Nothing is made when a load fails. The budget is one number for a whole load, and a save gives each instance a budget of its
+  own (the one an <code>Instantiate</code> of it had), so a world that was made of many instances can always be saved.</li>
+<li><strong>Work budget: 64 steps for each entity of the budget (16,777,216).</strong> A file's content is repeated for every instance of it, so entities alone do not bound a load: ten thousand overrides in a prefab
+  that a thousand prefabs hold are ten million merges for a handful of entities. Every component or override handled, attribute copied, component merged (by its size) and name tried while making a name
+  unique counts, and the expansion stops with a <code>FormatException</code> over the limit, with the same effect as the entity budget. An entity may have any number of components within it (the lookup is by name,
+  not a scan). A load, each <code>Instantiate</code>, and each save (which expands the instances again to see what they changed) takes a new budget; one that failed is spent.</li>
+<li><strong>Missing prefabs.</strong> A reference that names no file, a file that cannot be read, is not a prefab (another root element, none or two root entities, a repeated id, a newer version), or whose root
+  entity is itself an instance of another prefab (an entity would be the root of two instances: put it under an entity of its own) leaves the instance missing, as above.</li>
+<li><strong>Addresses.</strong> An instance at an address of 17 segments (the longest there is) is missing, since what is in it would need 18. A field that holds text that is not an address means no entity, so a
+  loader resolves only text that is a valid address; an entity that nothing can refer to has an address that starts with <code>~</code>, which no file can write.</li>
+<li><strong>Ids.</strong> Ids of entities an <code>&lt;Override&gt;</code> adds count in the prefab's numbering like any other: they may not repeat one, and <code>nextId</code> stays above them. An entity with no usable id, or one that repeats an
+  address, is made but cannot be referred to.</li>
+</ul>
+<h2 id="how-overrides-are-stored">How overrides are stored<a class="headerlink" href="#how-overrides-are-stored" title="Permanent link">&para;</a></h2>
+<p>An instance is saved as the element of <a href="#overrides">Overrides</a> above, written for you: the world compares each instance with what its prefab expands to on its own, and writes what differs. Nothing is
+recorded while you edit, so a change made by the editor, by a script or by code is saved the same way, and a field set back to the prefab's value is no longer an override.</p>
+<ul>
+<li><strong>What is compared</strong> is the value the loader would make, not the text. <code>1.0</code> and <code>1</code> are one number, a field an element leaves out is zero, a <code>true</code> may be written <code>1</code>; an asset reference with a UID and one
+  without (or after the file moved) is the same asset, and two references with different UIDs are two assets; an entity field is the entity it names, wherever it is written from. A component is compared
+  field by field and only the fields that differ are written, a field that was set to nothing as <code>""</code>.</li>
+<li><strong>Which entities pair up.</strong> The live instance and the expansion are paired from the root down by the id every member keeps (<code>PrefabMember</code>). A member the live instance no longer has is written as a removal
+  (<code>&lt;Override entity="…" remove="true"/&gt;</code>, only the topmost of a removed branch). An entity of the instance that is not a member (made in the scene, or a copy of a member) is an <em>added entity</em>, written under the
+  override of its parent (or directly in the element for the root's children), and it may itself be an instance. A member moved under another parent by code (the editor does not allow it) is written as both: the
+  member removed from where it was, and a plain copy under its new parent. A member of the wrong prefab for its place, or a second entity with a member's id (a copy of its components), is an added entity.</li>
+<li><strong>The text is stable.</strong> The element is written in a fixed order: the root's changes (components in the prefab's order, those added last), an <code>&lt;Override&gt;</code> for each changed entity in the prefab's order (name,
+  then components, then entities added below it), the entities added to the root, and the elements kept aside last. A scene that is loaded and saved again is byte for byte the same text.</li>
+<li><strong>Kept aside is kept.</strong> What an instance element held that could not be applied (see <a href="#overrides">Overrides</a>) is not in the live entities, so it is stored with the instance root (it travels with
+  <a href="../../core/ecs/">snapshots</a>, which is why Play and Stop keep it, and with a clone of the root) and written back <strong>first</strong>, before what the live entities say: an instance element is applied in the order it
+  is written, so an old element that has become applicable (a patch of a component the entity did not have, and has now) cannot win over what was done since. It is written as it was read, except that XML
+  comments and layout are not kept, and that the numbers in it follow the scene: an entity it adds gets a number of this save, and an entity field in it that named an entity of the scene (or the instance
+  root, and what follows, of an instance whose prefab is missing) is written with that entity's address now, empty if the entity is gone. Fields of components the world does not know (the prefab that defines
+  them is missing) cannot be told from numbers and keep the number they had.</li>
+<li><strong>References to what was not made.</strong> A field of the scene that names an entity inside an instance whose prefab is missing (<code>2/2</code>), or one that a kept element would add, loads as no entity; the world
+  remembers what it named and writes it back as the address that entity will have, so it names it again when the prefab is back. The same is kept for an asset field that did not load: it is 0, it is not an
+  override of the prefab's model, and a plain entity writes the reference it had.</li>
+<li><strong>A reference that is not one.</strong> A <code>prefab</code> attribute that is not an asset reference (a damaged UID, text) makes an empty instance with the text kept as it was written, and everything the element holds kept.</li>
+<li><strong>A prefab that moved on.</strong> The comparison is with the prefab <em>as it is now</em>. New fields, components and entities of the prefab are not overrides when a scene is <em>loaded</em> with the new prefab, since the
+  instance had nothing to say about them; a deleted entity that the scene had overrides for keeps them aside, and they apply again if the entity returns. But the live entities of a world that was running when
+  the file changed (it is saved from this world, which then reads the file again) still have the old prefab's entities and values, and the next save of an instance of it writes every difference as an override: the
+  new entity as a removal, the old value of a changed field pinned. Instances do not follow their prefab yet: until something refreshes them (loading the scene again does), that is what saving writes.</li>
+<li><strong>A prefab that cannot be read</strong> while the world holds its instance (the file was deleted, or replaced by one that contains itself) is compared as the single root it expands to: the live entities that
+  came from it are written as additions and nothing is dropped. A scene loaded without the prefab keeps its element intact and saves it as it was. An instance whose prefab is missing is only its root: what is
+  edited in it (a component added to the root, an entity added below it) is saved, and goes aside again when the scene is loaded again before the prefab is back, so a tool should treat it as read-only.</li>
+</ul>
+<p><strong>What is never an override:</strong> the order of siblings (they are in creation order, the prefab's entities first), <code>WorldTransform</code> and the other components scenes leave out (<code>IgnoreInScenes</code>), components the world
+cannot describe, a name that was cleared, <code>PrefabInstance</code> and <code>PrefabMember</code> (the engine makes them), and what the prefab's own nested instances could not apply (that belongs to the prefab's file).</p>
+<p>A scene that holds an instance is <a href="../scenes/#the-format">version 2</a>; one without is written as version 1, as before. The schemas (<code>scene.xsd</code>, <code>prefab.xsd</code>) describe <code>prefab</code> and <code>&lt;Override&gt;</code>, but
+leave what is inside an <code>&lt;Override&gt;</code> open: the rules above are what check it when a scene is read.</p>
+<h2 id="files">Files<a class="headerlink" href="#files" title="Permanent link">&para;</a></h2>
+<p><code>.aprefab</code> is an <a href="../assets/#where-a-uid-lives">authored asset</a> (<code>AuthoredAssets.Extensions</code>): <code>--import</code> gives a file without a <code>uid</code> one by adding the attribute to its root, the asset database finds a
+prefab by its UID, <code>--pack</code> stores it (<code>--cooked</code> as <a href="../import/#cooked-xml">cooked XML</a>, at the same path), and renaming or moving it keeps its UID (and what refers to it by <code>path|uid</code> still finds it).</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../scenes/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Scenes">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Scenes
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../hot-reload/" class="md-footer__link md-footer__link--next" aria-label="Next: Hot reload">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Hot reload
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "navigation.footer", "search.suggest", "toc.follow", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.a7633da7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.c21346df.min.js"></script>
+      
+    
+  </body>
+</html>
